@@ -1,0 +1,20 @@
+{% extends 'blogapp/base.html' %}
+
+{% block title %}
+Delete Post - My Blog
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>Delete Post</h1>
+            <p>Are you sure you want to delete the post "{{ post.title }}"?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

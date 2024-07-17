@@ -1,0 +1,47 @@
+{% extends 'blogapp/base.html' %}
+
+{% block title %}
+Signup - My Blog
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-primary text-white">
+    <h1 class="display-4">Join My Blog!</h1>
+    <p class="lead">Create an account to start writing your own posts and engaging with the community.</p>
+    <hr class="my-4">
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Signup</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-block">Signup</button>
+                </form>
+                {% if messages %}
+                    <div class="alert alert-success mt-3">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+/* styles.css */
+
+/* Общие стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Стили для навигационной панели */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Стили для jumbotron */
+.jumbotron {
+    background-color: #e9ecef;
+    padding: 2rem 1rem;
+}
+
+.jumbotron .display-4 {
+    font-size: 2.5rem;
+}
+
+.jumbotron p.lead {
+    font-size: 1.25rem;
+}
+
+/* Стили для карточек постов */
+.card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Стили для футера */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Дополнительные стили */
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Стили для кнопок */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 767.98px) {
+    .jumbotron .display-4 {
+        font-size: 1.5rem;
+    }
+
+    .jumbotron p.lead {
+        font-size: 1rem;
+    }
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.card {
+    margin-top: 2rem;
+}
+
+.card-title {
+    margin-bottom: 1rem;
+}
+
+.btn-block {
+    width: 100%;
+}
