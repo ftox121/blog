@@ -22,7 +22,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Registration successful. You can now log in.')
-            return redirect('blogapp:home')
+            return redirect('blogapp:home   ')
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {"form": form})
