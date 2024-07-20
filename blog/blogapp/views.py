@@ -4,17 +4,31 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from blogapp.forms import RegisterForm, CreatePostForm
 from django.contrib import messages
-
+from django.http import Http404
 from blogapp.models import Posts
-
-
+from django.core.paginator import Paginator , EmptyPage, PageNotAnInteger
+from blogapp.forms import  EmailPostForm
+from django.core.mail import send_mail
 # Create your views here.
 
 @login_required
 def home(request):
-    posts = Posts.objects.all()
+    post_list = Posts.published.all()
+    paginator = Paginator(post_list,3)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page_number)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
     return render(request , 'blogapp/home.html', {'posts' : posts})
 
+
+
+def post_detail(request,year, month, day, post):
+    post = get_object_or_404(Posts, status=Posts.Status.PUBLISHED, slug=post,publish__year=year,publish__month=month,publish__day=day)
+    return render(request, 'blogapp/detail.html', {'post' : post})
 
 def register(request):
     if request.method == 'POST':
@@ -63,3 +77,21 @@ def delete_view(request, pk):
         post.delete()
         return redirect('blogapp:home')
     return render(request, 'blogapp/delete.html',{'post':post})
+
+
+def post_share(request , post_pk):
+    post = get_object_or_404(Posts, pk=post_pk,status=Posts.Status.PUBLISHED)
+    sent = False
+    if request.method == 'POST':
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = f"{cd['name']} reccomends you read " f"{post.title}"
+            message = f'Read {post.title} at {post_url}\n\n' f'{cd['name']} comments: {cd['comments']}'
+            send_mail(subject,message,'lstaeee111@gmail.com',[cd['to']])
+            sent = True
+    else:
+        form = EmailPostForm()
+    return render(request, 'blogapp/share.html', {'form':form, 'post': post, 'sent': sent})
+

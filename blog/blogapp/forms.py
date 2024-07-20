@@ -14,4 +14,10 @@ class RegisterForm(UserCreationForm):
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = ['title', 'content','image']
+        fields = ['title', 'content','image','status']
+
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False, widget=forms.Textarea)
